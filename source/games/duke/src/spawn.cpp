@@ -53,7 +53,9 @@ DDukeActor* EGS(sectortype* whatsectp, int s_x, int s_y, int s_z, int s_pn, int8
 {
 	// sector pointer must be strictly validated here or the engine will crash.
 	if (whatsectp == nullptr || !validSectorIndex(sectnum(whatsectp))) return nullptr;
-	auto act = static_cast<DDukeActor*>(::InsertActor(RUNTIME_CLASS(DDukeActor), whatsectp, s_ss));
+
+	auto info = spawnMap.CheckKey(s_pn);
+	auto act = static_cast<DDukeActor*>(InsertActor(info ? info->Class() : RUNTIME_CLASS(DDukeActor), whatsectp, s_ss));
 
 	if (act == nullptr) return nullptr;
 	SetupGameVarsForActor(act);
@@ -126,6 +128,7 @@ DDukeActor* EGS(sectortype* whatsectp, int s_x, int s_y, int s_z, int s_pn, int8
 	act->spsmooth = {};
 
 	return act;
+
 }
 
 
