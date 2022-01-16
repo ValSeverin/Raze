@@ -700,9 +700,6 @@ DDukeActor* spawninit_r(DDukeActor* actj, DDukeActor* act, TArray<DDukeActor*>* 
 			act->spr.xrepeat = act->spr.yrepeat = 32;
 		ChangeActorStat(act, STAT_MISC);
 		break;
-	case CRANE:
-		initcrane(actj, act, CRANEPOLE);
-		break;
 	case WATERDRIP:
 		initwaterdrip(actj, act);
 		break;

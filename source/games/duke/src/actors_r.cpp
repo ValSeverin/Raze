@@ -835,10 +835,6 @@ void movestandables_r(void)
 			CallTick(act);
 			continue;
 		}
-		if (picnum >= CRANE && picnum <= CRANE +3)
-		{
-			movecrane(act, CRANE);
-		}
 
 		else if (picnum >= WATERFOUNTAIN && picnum <= WATERFOUNTAIN + 3)
 		{

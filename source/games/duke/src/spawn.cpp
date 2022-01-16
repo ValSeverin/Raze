@@ -60,7 +60,7 @@ DDukeActor* EGS(sectortype* whatsectp, int s_x, int s_y, int s_z, int s_pn, int8
 	if (act == nullptr) return nullptr;
 	SetupGameVarsForActor(act);
 
-
+	act->basepicnum = info ? info->param : -1;
 	act->spr.pos.X = s_x;
 	act->spr.pos.Y = s_y;
 	act->spr.pos.Z = s_z;
@@ -129,6 +129,13 @@ DDukeActor* EGS(sectortype* whatsectp, int s_x, int s_y, int s_z, int s_pn, int8
 
 	return act;
 
+}
+
+DDukeActor* SpawnActor(sectortype* whatsectp, int s_x, int s_y, int s_z, int s_pn, int8_t s_s, int8_t s_xr, int8_t s_yr, int s_a, int s_ve, int s_zv, DDukeActor* s_ow, int8_t s_ss)
+{
+	auto actor = EGS(whatsectp, s_x, s_y, s_z, s_pn, s_s, s_xr, s_yr, s_a, s_ve, s_zv, s_ow, s_ss);
+	if (actor) fi.spawninit(s_ow, actor, nullptr);
+	return actor;
 }
 
 
@@ -468,55 +475,6 @@ void initshell(DDukeActor* actj, DDukeActor* act, bool isshell)
 
 		ChangeActorStat(act, STAT_MISC);
 	}
-}
-
-//---------------------------------------------------------------------------
-//
-// 
-//
-//---------------------------------------------------------------------------
-
-void initcrane(DDukeActor* actj, DDukeActor* act, int CRANEPOLE)
-{
-	auto sect = act->sector();
-	act->spr.cstat |= CSTAT_SPRITE_BLOCK_ALL | CSTAT_SPRITE_ONE_SIDE;
-
-	act->spr.picnum += 2;
-	act->spr.pos.Z = sect->ceilingz + (48 << 8);
-	act->temp_data[4] = cranes.Reserve(1);
-
-	auto& apt = cranes[act->temp_data[4]];
-	apt.pos.X = act->spr.pos.X;
-	apt.pos.Y = act->spr.pos.Y;
-	apt.pos.Z = act->spr.pos.Z;
-	apt.poleactor = nullptr;
-
-	DukeStatIterator it(STAT_DEFAULT);
-	while (auto actk = it.Next())
-	{
-		if (actk->spr.picnum == CRANEPOLE && act->spr.hitag == actk->spr.hitag)
-		{
-			apt.poleactor = actk;
-
-			act->temp_sect = actk->sector();
-
-			actk->spr.xrepeat = 48;
-			actk->spr.yrepeat = 128;
-
-			apt.pole.X = actk->spr.pos.X;
-			apt.pole.Y = actk->spr.pos.Y;
-
-			actk->spr.pos = act->spr.pos;
-			actk->spr.shade = act->spr.shade;
-
-			SetActor(actk, actk->spr.pos);
-			break;
-		}
-	}
-
-	act->SetOwner(nullptr);
-	act->spr.extra = 8;
-	ChangeActorStat(act, STAT_STANDABLE);
 }
 
 //---------------------------------------------------------------------------

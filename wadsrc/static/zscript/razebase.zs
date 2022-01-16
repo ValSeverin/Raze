@@ -230,3 +230,6 @@ class RazeMenuDelegate : MenuDelegateBase
 	native override void MenuDismissed();
 
 }
+class CoreActor native
+{
+}
