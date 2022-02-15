@@ -67,8 +67,9 @@ class DukeActor : CoreActor native
 	
 	
 	virtual void BeginPlay() {}
-	virtual bool Tick() { return false; }
-
+	virtual void Initialize() {}
+	virtual void Tick() {}
+	virtual void RunState() {}	// this is the CON function.
 }
 
 extend struct _

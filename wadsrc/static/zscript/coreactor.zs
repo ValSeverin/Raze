@@ -33,6 +33,7 @@ class CoreActor native
 	native uint8 renderflags;
 	native float alpha;
 
+	native readonly sectortype sector
 	native readonly int16 spritesetpic;
 	native readonly int spawnindex;
 
