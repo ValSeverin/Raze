@@ -70,6 +70,10 @@ extend struct _
 	native readonly MapRecord currentLevel;
 	native readonly int automapMode;
 	native readonly int PlayClock;
+	
+	native Array<@sectortype> Sector;
+	native Array<@walltype> Wall;
+	
 }
 
 struct MapRecord native

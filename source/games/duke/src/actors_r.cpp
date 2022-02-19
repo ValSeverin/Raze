@@ -3975,6 +3975,7 @@ void destroyit(DDukeActor *actor)
 				destsect->lotag = srcsect->lotag;
 				destsect->hitag = srcsect->hitag;
 				destsect->extra = srcsect->extra;
+				destsect->dirty = EDirty::AllDirty;
 			}
 	}
 	it1.Reset(actor->sector());
